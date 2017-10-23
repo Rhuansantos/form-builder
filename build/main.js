@@ -23,6 +23,14 @@ var FormBuilder = exports.FormBuilder = function () {
 	function FormBuilder() {
 		_classCallCheck(this, FormBuilder);
 
+		for (var _len = arguments.length, _inputs = Array(_len), _key = 0; _key < _len; _key++) {
+			_inputs[_key] = arguments[_key];
+		}
+
+		this.inputs = _inputs;
+
+		console.log(this.inputs);
+
 		this.fields = [];
 		this.type = [];
 		this.buildForm();
@@ -32,14 +40,26 @@ var FormBuilder = exports.FormBuilder = function () {
 		key: 'buildForm',
 		value: function buildForm() {
 
-			this.type = 'aa';
+			this.type = 'color';
+			var input = null;
 
 			//Checking if the type of the input is valid or not
 			if (validInputs.includes(this.type)) {
 				console.log('is valid');
+
+				this.inputs.forEach(function (element) {
+					console.log(element);
+				}, this);
+
+				input = '\n\t\t\t\t<input type="' + this.type + '">\n\t\t\t';
 			} else {
 				console.log('is not valid');
 			}
+
+			this.fields = input;
+
+			// If is the last item in the array, print it
+			// this.render();
 		}
 	}, {
 		key: 'render',
@@ -62,13 +82,9 @@ var _formBuilder = require('./core/formBuilder.js');
 
 // when the page is ready
 window.addEventListener('load', function () {
-		console.log('ready');
-
-		var form = new _formBuilder.FormBuilder();
-
-		// let form2 = form.render();
-
-		console.log(form.render());
+		var form = new _formBuilder.FormBuilder('{phone=text}', '{type:select}');
+		// print result
+		document.getElementById("form").innerHTML = form.render();
 });
 
 },{"./core/formBuilder.js":1}]},{},[2]);

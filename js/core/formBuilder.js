@@ -7,13 +7,15 @@
  */
 
 
- let validInputs = [
-	'button','checkbox','color','date ','datetime-local','email','file','hidden','image','month','number','password','radio','range','reset','search','submit','tel','text','time ','url','week',
-]
+ const validInputs = ['button','checkbox','color','date ','datetime-local','email','file','hidden','image','month','number','password','radio','range','reset','search','submit','tel','text','time ','url','week'];
  
 export class FormBuilder{
 
-	constructor(){
+	constructor(..._inputs){
+		this.inputs = _inputs;
+
+		console.log(this.inputs);
+
 		this.fields = [];
 		this.type = [];
 		this.buildForm();
@@ -21,14 +23,28 @@ export class FormBuilder{
 
 	buildForm(){
 		
-		this.type = 'aa';
+		this.type = 'color';
+		let input = null;
 
 		//Checking if the type of the input is valid or not
 		if(validInputs.includes(this.type)){
 			console.log('is valid');
+
+			this.inputs.forEach(function(element) {
+				console.log(element);
+			}, this);
+
+			input = `
+				<input type="${this.type}">
+			`;
 		}else{
 			console.log('is not valid');
 		}
+
+		this.fields = input;
+
+		// If is the last item in the array, print it
+		// this.render();
 
 	}
 	 
@@ -40,7 +56,6 @@ export class FormBuilder{
 				${this.fields}
 			</form>
 		`;
-
 
 		return form;
 	}
