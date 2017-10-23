@@ -17,6 +17,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @class FormBuilder
  */
 
+// html 5
 var validInputs = ['button', 'checkbox', 'color', 'date ', 'datetime-local', 'email', 'file', 'hidden', 'image', 'month', 'number', 'password', 'radio', 'range', 'reset', 'search', 'submit', 'tel', 'text', 'time ', 'url', 'week'];
 
 var FormBuilder = exports.FormBuilder = function () {
@@ -33,6 +34,8 @@ var FormBuilder = exports.FormBuilder = function () {
 
 		this.fields = [];
 		this.type = [];
+
+		this.output = null;
 		this.buildForm();
 	}
 
@@ -43,20 +46,24 @@ var FormBuilder = exports.FormBuilder = function () {
 			this.type = 'color';
 			var input = null;
 
-			//Checking if the type of the input is valid or not
-			if (validInputs.includes(this.type)) {
-				console.log('is valid');
+			this.inputs['0'].forEach(function (element) {
+				// console.log(element);
 
-				this.inputs.forEach(function (element) {
-					console.log(element);
-				}, this);
+				// Checking if the type of the input is valid or not
+				if (validInputs.includes(this.type)) {
+					console.log('is valid');
+					input = '\n\t\t\t\t\t<input type="' + element + '" />\n\t\t\t\t';
+				} else {
+					console.log('is not valid');
+				}
 
-				input = '\n\t\t\t\t<input type="' + this.type + '">\n\t\t\t';
-			} else {
-				console.log('is not valid');
-			}
+				this.fields.push(input); // pushing to the array
+			}, this);
 
-			this.fields = input;
+			// this.fields = input;
+
+
+			console.log(this.fields);
 
 			// If is the last item in the array, print it
 			// this.render();
@@ -82,7 +89,8 @@ var _formBuilder = require('./core/formBuilder.js');
 
 // when the page is ready
 window.addEventListener('load', function () {
-		var form = new _formBuilder.FormBuilder('{phone=text}', '{type:select}');
+		var inputs = ['{phone:text}', '{type:select}', '{type:text}'];
+		var form = new _formBuilder.FormBuilder(inputs);
 		// print result
 		document.getElementById("form").innerHTML = form.render();
 });
