@@ -5,7 +5,9 @@ import { FormBuilder } from './core/formBuilder.js';
 window.addEventListener('load', ()=>{
 		console.log('ready');
 
-		let form = new FormBuilder.return();
+		let form = new FormBuilder();
 
-		console.log(form);
+		// let form2 = form.render();
+
+		console.log(form.render());
 });

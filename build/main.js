@@ -9,17 +9,46 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/**
+ * Form builder Packege
+ * Build By Rhuan Santos
+ * Email: rhuansantosdev@gmail.com
+ * @export
+ * @class FormBuilder
+ */
+
+var validInputs = ['button', 'checkbox', 'color', 'date ', 'datetime-local', 'email', 'file', 'hidden', 'image', 'month', 'number', 'password', 'radio', 'range', 'reset', 'search', 'submit', 'tel', 'text', 'time ', 'url', 'week'];
+
 var FormBuilder = exports.FormBuilder = function () {
 	function FormBuilder() {
 		_classCallCheck(this, FormBuilder);
 
 		this.fields = [];
+		this.type = [];
+		this.buildForm();
 	}
 
-	_createClass(FormBuilder, null, [{
-		key: 'return',
-		value: function _return() {
-			console.log('test');
+	_createClass(FormBuilder, [{
+		key: 'buildForm',
+		value: function buildForm() {
+
+			this.type = 'aa';
+
+			//Checking if the type of the input is valid or not
+			if (validInputs.includes(this.type)) {
+				console.log('is valid');
+			} else {
+				console.log('is not valid');
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var action = null;
+
+			var form = '\n\t\t\t<form action="">\n\t\t\t\t' + this.fields + '\n\t\t\t</form>\n\t\t';
+
+			return form;
 		}
 	}]);
 
@@ -35,9 +64,11 @@ var _formBuilder = require('./core/formBuilder.js');
 window.addEventListener('load', function () {
 		console.log('ready');
 
-		var form = new _formBuilder.FormBuilder.return();
+		var form = new _formBuilder.FormBuilder();
 
-		console.log(form);
+		// let form2 = form.render();
+
+		console.log(form.render());
 });
 
 },{"./core/formBuilder.js":1}]},{},[2]);
