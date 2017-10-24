@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const form = require('../../../../index');
 
 
 module.exports = function(app) {
@@ -7,5 +8,5 @@ module.exports = function(app) {
 }
 
 router.get('/', function(req, res, next) {
-  res.send('hello world');
+  res.render('index');
 });
