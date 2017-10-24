@@ -1,6 +1,6 @@
 {
   "name": "htmlform-builder",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "## Installation",
   "main": "index.js",
   "scripts": {
@@ -8,10 +8,7 @@
   },
   "author": "Rhuan Santos",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Rhuansantos/form-builder.git"
-  },
+  "repository": "git+https://github.com/Rhuansantos/form-builder.git",
   "keywords": [
     "html5",
     "forms",
