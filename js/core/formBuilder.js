@@ -19,28 +19,27 @@ export class FormBuilder{
 
 	buildForm(){	
 		let input = null;
-		this.inputs.forEach(function(el) {
+		this.inputs.forEach((el) => {
 			// split by : then remove the last element that should be '}' from the object
 			let type = el.split("type:")['1'].slice(0, -1);
 			// Checking if the type of the input is valid or not
 			if(validInputs.includes(type)){
-				input = `<input type="${type}" />`;
+				input = `<label><input type="${type}" /></label>`;
 				this.fields.push(input); 
 			}else{
 				throw new Error(
 					type + ' is not valid, please choose a valid HTML 5 Input type'
 				);
 			}
-		}, this);	
+		});	
 	} 
 	async render(){
 		await this.buildForm();	
-
-		console.log(this.fields);
+		
 		let action = null;
 		let form = `
 			<form action="${action}">
-				${this.fields}
+				${this.fields.join("")}
 			</form>
 		`;
 		document.getElementById(String(this.output)).innerHTML = form;

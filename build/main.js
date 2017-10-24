@@ -33,27 +33,28 @@ var FormBuilder = exports.FormBuilder = function () {
 	_createClass(FormBuilder, [{
 		key: 'buildForm',
 		value: function buildForm() {
+			var _this = this;
+
 			var input = null;
 			this.inputs.forEach(function (el) {
 				// split by : then remove the last element that should be '}' from the object
 				var type = el.split("type:")['1'].slice(0, -1);
 				// Checking if the type of the input is valid or not
 				if (validInputs.includes(type)) {
-					input = '<input type="' + type + '" />';
-					this.fields.push(input);
+					input = '<label><input type="' + type + '" /></label>';
+					_this.fields.push(input);
 				} else {
 					throw new Error(type + ' is not valid, please choose a valid HTML 5 Input type');
 				}
-			}, this);
+			});
 		}
 	}, {
 		key: 'render',
 		value: async function render() {
 			await this.buildForm();
 
-			console.log(this.fields);
 			var action = null;
-			var form = '\n\t\t\t<form action="' + action + '">\n\t\t\t\t' + this.fields + '\n\t\t\t</form>\n\t\t';
+			var form = '\n\t\t\t<form action="' + action + '">\n\t\t\t\t' + this.fields.join("") + '\n\t\t\t</form>\n\t\t';
 			document.getElementById(String(this.output)).innerHTML = form;
 		}
 	}]);
