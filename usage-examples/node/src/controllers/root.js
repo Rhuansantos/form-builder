@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
-
+const { FormBuilder } = require('../../../../index');
 
 module.exports = function(app) {
   app.use('/', router);
 }
 
 router.get('/', function(req, res, next) {
-  res.send('hello world');
+
+  let inputs = ['{type:text}', '{type:select}', '{type:number}'];
+  let htmlForm = new FormBuilder(inputs);
+  let form = htmlForm.render();
+
+  res.render('index', {form});
+  
 });
