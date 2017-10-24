@@ -1,5 +1,5 @@
 {
-  "name": "htmlform-builder",
+  "name": "htmlform-builder-test",
   "version": "0.0.1",
   "description": "## Installation",
   "main": "server.js",
@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/Rhuansantos/form-builder/issues"
   },
-  "homepage": "https://github.com/Rhuansantos/form-builder#readme"
+  "homepage": "https://github.com/Rhuansantos/form-builder#readme",
+  "dependencies": {
+    "htmlform-builder": "0.0.3"
+  }
 }
