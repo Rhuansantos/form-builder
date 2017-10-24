@@ -10,44 +10,39 @@
  const validInputs = ['button','checkbox','color','date ','datetime-local','email','file','hidden','image','month','number','password','radio','range','reset','search','submit','tel','text','time ','url','week', 'select'];
  
 export class FormBuilder{
-
 	constructor(_output, _inputs){
 		this.inputs = _inputs;
 		this.output = _output;
 		this.fields = [];
-		this.buildForm();
+		this.render();
 	}
 
 	buildForm(){	
 		let input = null;
-
 		this.inputs.forEach(function(el) {
-
 			// split by : then remove the last element that should be '}' from the object
 			let type = el.split("type:")['1'].slice(0, -1);
-
 			// Checking if the type of the input is valid or not
 			if(validInputs.includes(type)){
-				input = `<input type="${type}">`;
+				input = `<input type="${type}" />`;
 				this.fields.push(input); 
 			}else{
-				console.error(type + ' is not valid, please choose a valid HTML 5 Input type');
+				throw new Error(
+					type + ' is not valid, please choose a valid HTML 5 Input type'
+				);
 			}
+		}, this);	
+	} 
+	async render(){
+		await this.buildForm();	
 
-		}, this);
-		
-	}
-	 
-	render(){
+		console.log(this.fields);
 		let action = null;
-			
 		let form = `
 			<form action="${action}">
 				${this.fields}
 			</form>
 		`;
-
-		// return 
 		document.getElementById(String(this.output)).innerHTML = form;
 	}
 }

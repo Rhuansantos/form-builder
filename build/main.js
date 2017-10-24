@@ -27,36 +27,33 @@ var FormBuilder = exports.FormBuilder = function () {
 		this.inputs = _inputs;
 		this.output = _output;
 		this.fields = [];
-		this.buildForm();
+		this.render();
 	}
 
 	_createClass(FormBuilder, [{
 		key: 'buildForm',
 		value: function buildForm() {
 			var input = null;
-
 			this.inputs.forEach(function (el) {
-
 				// split by : then remove the last element that should be '}' from the object
 				var type = el.split("type:")['1'].slice(0, -1);
-
 				// Checking if the type of the input is valid or not
 				if (validInputs.includes(type)) {
-					input = '<input type="' + type + '">';
+					input = '<input type="' + type + '" />';
 					this.fields.push(input);
 				} else {
-					console.error(type + ' is not valid, please choose a valid HTML 5 Input type');
+					throw new Error(type + ' is not valid, please choose a valid HTML 5 Input type');
 				}
 			}, this);
 		}
 	}, {
 		key: 'render',
-		value: function render() {
+		value: async function render() {
+			await this.buildForm();
+
+			console.log(this.fields);
 			var action = null;
-
 			var form = '\n\t\t\t<form action="' + action + '">\n\t\t\t\t' + this.fields + '\n\t\t\t</form>\n\t\t';
-
-			// return 
 			document.getElementById(String(this.output)).innerHTML = form;
 		}
 	}]);
@@ -71,11 +68,8 @@ var _formBuilder = require('./core/formBuilder.js');
 
 // when the page is ready
 window.addEventListener('load', function () {
-		var inputs = ['{type:1}', '{type:select}', '{type:number}'];
+		var inputs = ['{type:text}', '{type:select}', '{type:number}'];
 		var form = new _formBuilder.FormBuilder('form', inputs);
-
-		// // print result
-		// document.getElementById("form").innerHTML = form.render();
 });
 
 },{"./core/formBuilder.js":1}]},{},[2]);
