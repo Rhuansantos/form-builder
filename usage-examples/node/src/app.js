@@ -2,13 +2,11 @@ const express = require('express');
 const glob = require('glob');
 const bodyParser = require('body-parser');
 const pug = require('pug');
-const hbs = require('hbs');
 const forceSsl = require('express-force-ssl');
 
 module.exports = function(app) {
-  // Configure view engine to render EJS templates.
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'hbs');
+  app.set('view engine', 'pug');
 
   // app.use(forceSsl);
   app.use(bodyParser.json());
