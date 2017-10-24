@@ -1,72 +1,53 @@
 /**
- * Form builder Packege
+ * Form builder
  * Build By Rhuan Santos
  * Email: rhuansantosdev@gmail.com
  * @export
  * @class FormBuilder
  */
 
-// html 5
- const validInputs = ['button','checkbox','color','date ','datetime-local','email','file','hidden','image','month','number','password','radio','range','reset','search','submit','tel','text','time ','url','week'];
+// html 5 valid type of inputs
+ const validInputs = ['button','checkbox','color','date ','datetime-local','email','file','hidden','image','month','number','password','radio','range','reset','search','submit','tel','text','time ','url','week', 'select'];
  
 export class FormBuilder{
 
-	constructor(..._inputs){
+	constructor(_output, _inputs){
 		this.inputs = _inputs;
-
-		console.log(this.inputs);
-
+		this.output = _output;
 		this.fields = [];
-		this.type = [];
-
-		this.output = null;
 		this.buildForm();
 	}
 
-	buildForm(){
-		
-		this.type = 'color';
+	buildForm(){	
 		let input = null;
 
+		this.inputs.forEach(function(el) {
 
-
-		this.inputs['0'].forEach(function(element) {
-			// console.log(element);
+			// split by : then remove the last element that should be '}' from the object
+			let type = el.split("type:")['1'].slice(0, -1);
 
 			// Checking if the type of the input is valid or not
-			if(validInputs.includes(this.type)){
-				console.log('is valid');
-				input = `
-					<input type="${element}" />
-				`;
+			if(validInputs.includes(type)){
+				input = `<input type="${type}">`;
+				this.fields.push(input); 
 			}else{
-				console.log('is not valid');
+				console.error(type + ' is not valid, please choose a valid HTML 5 Input type');
 			}
 
-			this.fields.push(input); // pushing to the array
-
 		}, this);
-
-
-		// this.fields = input;
-
-
-		console.log(this.fields);
-
-		// If is the last item in the array, print it
-		// this.render();
-
+		
 	}
 	 
 	render(){
 		let action = null;
 			
 		let form = `
-			<form action="">
+			<form action="${action}">
 				${this.fields}
 			</form>
 		`;
 
-		return form;
+		// return 
+		document.getElementById(String(this.output)).innerHTML = form;
 	}
 }

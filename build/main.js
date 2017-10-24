@@ -10,72 +10,54 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /**
- * Form builder Packege
+ * Form builder
  * Build By Rhuan Santos
  * Email: rhuansantosdev@gmail.com
  * @export
  * @class FormBuilder
  */
 
-// html 5
-var validInputs = ['button', 'checkbox', 'color', 'date ', 'datetime-local', 'email', 'file', 'hidden', 'image', 'month', 'number', 'password', 'radio', 'range', 'reset', 'search', 'submit', 'tel', 'text', 'time ', 'url', 'week'];
+// html 5 valid type of inputs
+var validInputs = ['button', 'checkbox', 'color', 'date ', 'datetime-local', 'email', 'file', 'hidden', 'image', 'month', 'number', 'password', 'radio', 'range', 'reset', 'search', 'submit', 'tel', 'text', 'time ', 'url', 'week', 'select'];
 
 var FormBuilder = exports.FormBuilder = function () {
-	function FormBuilder() {
+	function FormBuilder(_output, _inputs) {
 		_classCallCheck(this, FormBuilder);
 
-		for (var _len = arguments.length, _inputs = Array(_len), _key = 0; _key < _len; _key++) {
-			_inputs[_key] = arguments[_key];
-		}
-
 		this.inputs = _inputs;
-
-		console.log(this.inputs);
-
+		this.output = _output;
 		this.fields = [];
-		this.type = [];
-
-		this.output = null;
 		this.buildForm();
 	}
 
 	_createClass(FormBuilder, [{
 		key: 'buildForm',
 		value: function buildForm() {
-
-			this.type = 'color';
 			var input = null;
 
-			this.inputs['0'].forEach(function (element) {
-				// console.log(element);
+			this.inputs.forEach(function (el) {
+
+				// split by : then remove the last element that should be '}' from the object
+				var type = el.split("type:")['1'].slice(0, -1);
 
 				// Checking if the type of the input is valid or not
-				if (validInputs.includes(this.type)) {
-					console.log('is valid');
-					input = '\n\t\t\t\t\t<input type="' + element + '" />\n\t\t\t\t';
+				if (validInputs.includes(type)) {
+					input = '<input type="' + type + '">';
+					this.fields.push(input);
 				} else {
-					console.log('is not valid');
+					console.error(type + ' is not valid, please choose a valid HTML 5 Input type');
 				}
-
-				this.fields.push(input); // pushing to the array
 			}, this);
-
-			// this.fields = input;
-
-
-			console.log(this.fields);
-
-			// If is the last item in the array, print it
-			// this.render();
 		}
 	}, {
 		key: 'render',
 		value: function render() {
 			var action = null;
 
-			var form = '\n\t\t\t<form action="">\n\t\t\t\t' + this.fields + '\n\t\t\t</form>\n\t\t';
+			var form = '\n\t\t\t<form action="' + action + '">\n\t\t\t\t' + this.fields + '\n\t\t\t</form>\n\t\t';
 
-			return form;
+			// return 
+			document.getElementById(String(this.output)).innerHTML = form;
 		}
 	}]);
 
@@ -89,10 +71,11 @@ var _formBuilder = require('./core/formBuilder.js');
 
 // when the page is ready
 window.addEventListener('load', function () {
-		var inputs = ['{phone:text}', '{type:select}', '{type:text}'];
-		var form = new _formBuilder.FormBuilder(inputs);
-		// print result
-		document.getElementById("form").innerHTML = form.render();
+		var inputs = ['{type:1}', '{type:select}', '{type:number}'];
+		var form = new _formBuilder.FormBuilder('form', inputs);
+
+		// // print result
+		// document.getElementById("form").innerHTML = form.render();
 });
 
 },{"./core/formBuilder.js":1}]},{},[2]);
