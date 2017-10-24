@@ -12,7 +12,7 @@ In a browser:
 
 Using npm:
 ```shell
-$ npm install --save htmlForm-Builder
+$ npm install --save htmlform-builder
 ```
 
 
