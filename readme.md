@@ -15,6 +15,11 @@ Using npm:
 $ npm install --save htmlform-builder
 ```
 
+Using yarn
+```shell
+yarn add htmlform-builder
+```
+
 Browser example
 ```js
 import { FormBuilder } from './core/formBuilder.js';
